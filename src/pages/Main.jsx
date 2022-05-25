@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { DragDropContext } from "react-beautiful-dnd";
+import { LIST_MODAL_OPEN } from "../modules/todoSlice";
+
+// components
 import List from "../components/List";
 import Buttons from "../components/Buttons";
-import { DragDropContext } from "react-beautiful-dnd";
+import ListModal from "../components/ListModal";
 
 const Main = () => {
   const fromBackendData = useSelector((state) => state.todo.backendData);
   const [list, setList] = useState(fromBackendData);
+
+  const showListModal = useSelector((state) => state.todo.listModalOpen);
+  const dispatch = useDispatch();
+
+  const addListModalHandler = useCallback(() => {
+    dispatch(LIST_MODAL_OPEN());
+  }, [dispatch]);
+
   const onDragEnd = (result, list, setList) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -56,10 +68,10 @@ const Main = () => {
           })}
         </DragDropContext>
       </MainBox>
-
       <AddListBtnBox>
-        <Buttons addList />
+        <Buttons addList _onClick={addListModalHandler} />
       </AddListBtnBox>
+      {showListModal ? <ListModal closeHandler={addListModalHandler} /> : null}
     </>
   );
 };
@@ -82,7 +94,7 @@ const AddListBtnBox = styled.div`
   height: auto;
   position: fixed;
   top: 2.5%;
-  right: 3.5%;
+  right: 2.5%;
 `;
 
 export default Main;

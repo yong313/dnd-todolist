@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { Droppable } from "react-beautiful-dnd";
+// components
 import Buttons from "./Buttons";
 import Card from "./Card";
-import { Droppable } from "react-beautiful-dnd";
 
 const List = ({ listData, listId }) => {
   return (
@@ -30,7 +31,6 @@ const List = ({ listData, listId }) => {
             );
           }}
         </Droppable>
-
         <AddBtnBox>
           <Buttons createBtn />
         </AddBtnBox>
@@ -51,6 +51,22 @@ const ListBox = styled.div`
 
   :last-child {
     margin-right: 0;
+  }
+
+  animation: listAnime 0.55s ease;
+  @keyframes listAnime {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    flex: 0 0 10.5%;
+    min-width: 10.5%;
+    max-width: 10.5%;
   }
 `;
 

@@ -22,11 +22,25 @@ export const todoSlice = createSlice({
         cards: [],
       },
     },
+    listModalOpen: false,
+    errorMsg: false,
   },
 
-  reducers: {},
+  reducers: {
+    // 리스트 모달
+    LIST_MODAL_OPEN: (state) => {
+      state.errorMsg = false;
+      state.listModalOpen = !state.listModalOpen;
+    },
+    // 리스트 추가
+    ADD_LIST: (state, action) => {
+      state.backendData = { ...state.backendData, action };
+      console.log(action.payload);
+      console.log(state.backendData);
+    },
+  },
 });
 
-export const {} = todoSlice.actions;
+export const { LIST_MODAL_OPEN, ADD_LIST } = todoSlice.actions;
 
 export default todoSlice.reducer;
