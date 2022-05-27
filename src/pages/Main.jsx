@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -11,7 +11,16 @@ import ListModal from "../components/ListModal";
 
 const Main = () => {
   const fromBackendData = useSelector((state) => state.todo.backendData);
-  const [list, setList] = useState(fromBackendData);
+  const [list, setList] = useState({ ...fromBackendData });
+
+  // console.log(fromBackendData);
+  // console.log(list);
+
+  useEffect(() => {
+    if (fromBackendData) {
+      setList(fromBackendData);
+    }
+  }, [fromBackendData]);
 
   const showListModal = useSelector((state) => state.todo.listModalOpen);
   const dispatch = useDispatch();

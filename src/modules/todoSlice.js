@@ -34,9 +34,9 @@ export const todoSlice = createSlice({
     },
     // 리스트 추가
     ADD_LIST: (state, action) => {
-      state.backendData = { ...state.backendData, action };
-      console.log(action.payload);
-      console.log(state.backendData);
+      state.backendData = { ...state.backendData, ...action.payload };
+      // console.log(action.payload);
+      // console.log(state.backendData);
     },
   },
 });
