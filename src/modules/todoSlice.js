@@ -34,9 +34,14 @@ export const todoSlice = createSlice({
     },
     // 리스트 추가
     ADD_LIST: (state, action) => {
-      state.backendData = { ...state.backendData, ...action.payload };
-      // console.log(action.payload);
-      // console.log(state.backendData);
+      let newList = {
+        [action.payload[0]]: {
+          title: action.payload[1],
+          cards: [],
+        },
+      };
+      state.backendData = { ...state.backendData, ...newList };
+      state.listModalOpen = !state.listModalOpen;
     },
   },
 });

@@ -10,14 +10,7 @@ const ListModal = ({ closeHandler }) => {
   const showErrorMsg = useSelector((state) => state.todo.errorMsg);
   const [title, setTitle] = useState("");
   const titleRef = useRef(null);
-
-  const newList = {
-    [uuidv4()]: {
-      title: title,
-      cards: [],
-    },
-  };
-  const addNewList = newList;
+  let listId = uuidv4();
 
   const dispatch = useDispatch();
 
@@ -29,9 +22,9 @@ const ListModal = ({ closeHandler }) => {
   // 리스트 추가
   const addListHandler = useCallback(() => {
     if (title.length >= 1) {
-      dispatch(ADD_LIST(addNewList));
+      dispatch(ADD_LIST([listId, title]));
     }
-  }, [title.length, addNewList, dispatch]);
+  }, [title, dispatch, listId]);
 
   return (
     <>

@@ -13,9 +13,6 @@ const Main = () => {
   const fromBackendData = useSelector((state) => state.todo.backendData);
   const [list, setList] = useState({ ...fromBackendData });
 
-  // console.log(fromBackendData);
-  // console.log(list);
-
   useEffect(() => {
     if (fromBackendData) {
       setList(fromBackendData);
